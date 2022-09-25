@@ -4,7 +4,7 @@ import random
 
 ## characters to generate password from
 all_characters_pattern = list(string.ascii_letters+string.digits+"!@#$%^&*()")
-alphanumeric_patter = list(string.ascii_letters+string.digits)
+alphanumeric_pattern = list(string.ascii_letters+string.digits)
 common_passwd_pattern = ["password","computer","1234"]
 
 def generate_random_password(characters,password_length=6):
@@ -42,4 +42,70 @@ def get_natophonetics(term):
 def leet_converter(term):
     result = " ".join([leet_dict.get(i,i) for i in list(term.lower())])
     return result
+
+def main():
+    st.title("Password Generator App")
+
+    menu = ["Home","Advanced","LeetConverter","About"]
+    choice = st.sidebar.selectbox("Menu",menu)
+
+    if choice =="Home":
+        st.subheader("Home")
+        password_patter_list = ['alphanumeric','all','words']
+        password_length = st.number_input("Password Length",min_value=5,maax_value=25,value=8)
+        password_pattern_choice = st.multiselect("Pattern",password_patter_list,default='all')
+
+        if st.button("Generate"):
+            st.info("Generated Results")
+            if 'alphanumeric' in password_pattern_choice:
+                passwd_result = generate_random_password2(alphanumeric_pattern,password_length)
+
+                st.code(passwd_result)
+                st.info("Nato Phonetics")
+                st.write("Remember:: {}".format(get_natophonetics(alphanumeric_pattern,password_length)))
+        
+            elif 'alphanumeric' and 'words' in password_pattern_choice:
+                first_result = generate_random_password2(alphanumeric_pattern,password_length)
+                passwd_result = str(first_result) + random.choice(common_passwd_pattern)
+
+                st.code(passwd_result)
+                st.info("NatoPhonetics")
+                st.write(f"Remeber:: {get_natophonetics(passwd_result)}")
+
+            else:
+                passwd_result = generate_random_password2(all_characters_pattern,password_length)
+                st.code(passwd_result)
+                st.info("Nato Phonetics")
+                st.write(f"Remeber:: {get_natophonetics(passwd_result)}")
     
+    elif choice == "Advandced":
+        st.subheader("Advanced")
+        password_patter_list = ['alphanumeric','all']
+        password_length = st.number_input("Password Length",min_value=5,max_value=25,value=8)
+        custom_word = st.text_input("Add Your Custom Word")
+        password_pattern_choice = st.multiselect("Patter",password_patter_list,default='all')
+
+        if st.button("Generate"):
+            st.info("Generated Results")
+            first_result = generate_random_password2(all_characters_pattern,password_length)
+            passwd_result = random.choice([custom_word]) +str(first_result)
+
+            st.code(passwd_result)
+            st.info("NatoPhonetics")
+            st.write(f"Remeber:: {get_natophonetics(passwd_result)}")
+    
+    elif choice == 'LeetConverter':
+        st.subheader("LeetConverter")
+        col1,col2 = st.columns(2)
+
+        with col1:
+            term = st.text_area("Your Text")
+            if st.button("Converter"):
+                st.success("Results")
+                st.write(leet_converter(term))
+    
+    else:
+        st.subheader("About")
+
+if  __name__=='__main__':
+    main()
