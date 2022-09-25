@@ -78,7 +78,7 @@ def main():
                 st.info("Nato Phonetics")
                 st.write(f"Remeber:: {get_natophonetics(passwd_result)}")
     
-    elif choice == "Advandced":
+    elif choice == "Advanced":
         st.subheader("Advanced")
         password_patter_list = ['alphanumeric','all']
         password_length = st.number_input("Password Length",min_value=5,max_value=25,value=8)
