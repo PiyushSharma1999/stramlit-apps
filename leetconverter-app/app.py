@@ -23,4 +23,20 @@ def plot_wordcloud(docx):
     plt.imshow(mywordcloud, interpolation='bilinear')
     plt.axis('off')
     st.pyplot(fig)
-    
+
+def get_value(val, my_dict):
+    for key ,value in my_dict.items():
+        if val==key:
+            return value
+
+def get_natophonetics(term):
+    result = ' '.join([natophonetics.get(i,i) for i in list(term.upper())])
+    return result
+
+def leet_converter(term):
+    result = ' '.join([leet_dict.get(i,i) for i in list(term.lower())])
+    return result
+
+def greek_leet_converter(term):
+    result = ' '.join([leet_dict_gk.get(i,i) for i in list(term.lower())])
+    return result
