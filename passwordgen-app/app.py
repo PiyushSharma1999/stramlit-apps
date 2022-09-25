@@ -52,7 +52,7 @@ def main():
     if choice =="Home":
         st.subheader("Home")
         password_patter_list = ['alphanumeric','all','words']
-        password_length = st.number_input("Password Length",min_value=5,maax_value=25,value=8)
+        password_length = st.number_input("Password Length",min_value=5,max_value=25,value=8)
         password_pattern_choice = st.multiselect("Pattern",password_patter_list,default='all')
 
         if st.button("Generate"):
