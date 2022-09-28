@@ -8,7 +8,7 @@ import altair as alt
 
 # DB management
 import sqlite3
-conn = sqlite3.connect('data/netflix_titles.csv')
+conn = sqlite3.connect('streamlit/netfilx-app/data/netflix_titles.sqlite')
 c = conn.cursor()
 
 # Search function
